@@ -1,0 +1,123 @@
+1) pipe_1.c :
+
+i) and ii)
+./pipe_1 4  :  Creates 4 child processes.Each child process communicates with the parent through the same pipe (pd).Each child process writes a greeting message to the writing end of the pipe (pd[1]) containing the process number and the process ID. The parent process first prints "Creating 4 children" and then creates the 4 children with the fork() command.Αlso the parent process prints "FATHER: I receiνed from children:".Then reads from the reading end of the pipe (pd[0]) the messages of the child processes and prints them to the screen in order(because I have a FIFO structure, i.e. the first message written is the one that will be read first). Thus it follows:
+Creating 4 children
+FATHER: I receiνed from children:
+
+Hello from child 1 (pid=2476953)
+Hello from child 2 (pid=2476954)
+Hello from child 3 (pid=2476955)
+Hello from child 4 (pid=2476956)
+
+iii)
+a)write(pd[1], buf, strlen(buf)+1)   :  Writes to pd[1] the content of the buffer, which is a string with length equal to strlen(buf)+1.
+b)sprintf(buf, "Ηello from child %2d (pid=%5d)\n", i, getpid())  :  Save to buffer the greeting message of each child process.
+c)read(pd[0], buf, BUFSIZE)  :  Reads the contents of pd[0] which can have maximum size BUFSIZE and stores it in the buffer.  
+d)write(1, buf, n) is the same as printf(buf).
+
+e)child(int i, int *pd): This function is used once by each child process.Through this, each child uses write() command to write a greeting message to pd[1].
+
+f)main : Takes the number of child processes (N) as a command-line argument. It creates the pipe pd.Then, with a for loop, it creates the N child processes with the fork() command.The parent process uses the read() command to read from the pipe.
+                    
+
+
+
+2) pipe_2.c :
+  
+i) and ii)
+./pipe_2  :  Creates 1 child process with the fork() command.Τhe parent process writes the phrase "message through pipe" to the pipe.The child process reads from the pipe the phrase written by the parent process and prints it on the screen (stdout). So the output of the example is:
+message through pipe
+
+iii)
+a)pipe(fd)   :  Creates the pipe fd.
+b)write(fd[1], "message through pipe\n", 21)  :  Writes to fd[1] the string "message through pipe\n" which has length equal to 21 characters.With this command the parent process writes the phrase "message through pipe\n" to the writing end of the pipe (fd[1]).
+
+c)read(fd[0], line, MAXLINE)  :  Reads the contents of fd[0] which can have maximum size MAXLINE and stores it in the char array named line.This way the phrase "message through pipe\n" is stored in the line array.
+
+d)write(STDOUT_FILENO, line, n)  :  Prints the contents of the line array to the screen, i.e. in this way the child process prints to the screen the phrase written on the pipe by the parent process.
+
+
+
+3) example_kill.c :
+
+i)
+The C code prepares to catch the SIGUSR1 signal using the signal(SIGUSR1, catcher) command. It then calls the sendsig() function, which repeatedly sends the SIGUSR1 signal to itself. Whenever this signal comes to the sendsig() function and thus to the program itself, then the catcher() function is executed because of the command signal(SIGUSR1,catcher). When catcher() is executed , the counter sigcount is incremented and for this reason if the program executed correctly it should be true when it exits: result == sigcount.
+
+ii)
+./example_kill 50 : This means that the for loop inside sendsig() will be executed 50 times, but only 5 times sendsig() will send the SIGUSR1 signal to itself. This happens because only 5 times will be true: i == ((i/10)*10), i.e. for i=0,10,20,30,40. Therefore, sendsig() returns the number 5 in the result variable. Also, catcher() will be executed 5 times and the sigcount will become 5. Finally I have result == sigcount == 5.The output is : Back in main
+                                        The kill() function was called 5 times
+                                        The signal catching function was called 5 times
+
+iii)
+a)signal(SIGUSR1, catcher)   : Whenever the SIGUSR1 signal arrives in the program then the catcher() function is executed.
+b)kill( getpid(), SIGUSR1 )  : Sendsig() function sends the signal SIGUSR1 to itself.
+c)volatile int sigcount      : It is not predetermined when the SIGUSR1 signal will come. For this reason, the variable sigcount is 
+                               volatile so that the compiler does not mess with it during optimization.                   
+                             
+
+4) example_pause.c :
+
+i) and iii)
+The C code prepares to catch the SIGALRM signal using the signal(SIGALRM, catcher) command.Τhe input argument (argv[1]) indicates the seconds that the alarm() function accepts as input and specifies after how many seconds a SIGALRM signal will be sent to the program.
+Until the SIGALRM signal arrives, the program is in a pause state due to the pause() command. To "wake up" the program from this state, the SIGALRM signal needs to arrive to "wake it up".When SIGALRM arrives to the program then catcher() will be executed.
+
+ii)
+./example_pause 5  :  alarm(5) is executed. Consequently, the SIGALRM signal arrives to the program after 5 seconds.During these 5 seconds the program does nothing due to the pause() command.As soon as SIGALRM reaches the program, then Catcher() is executed and prints the message "Signal catcher called for signal 14". E.g.the output is : 
+                                                                  The time before pause is Mon Dec 18 19:10:18 2023
+
+                                                                  Signal catcher called for signal 14
+                                                                  The time after pause is Mon Dec 18 19:10:23 2023
+
+
+5) example_sleep.c :
+
+i) and ii) and iii)
+./example_sleep  :  The C code sets up a signal handler (sighandler) for the SIGINT signal (interrupt signal). The program enters a loop, repeatedly printing the message "Going to sleep for a second..." and sleeping for one second. When the user sends a SIGINT signal 
+(e.g., by pressing Ctrl+C), the signal handler is invoked, printing the message "Caught signal 2, coming out..." and terminating the program.
+
+
+6) signal.c : 
+
+i)
+The C code forks a child process and executes a specified command given by the user as an input argument. It sets up a signal handler for SIGALRM, triggers an alarm after a specified time, and kills the child process when the alarm goes off.The signal handler is the onalarm() function. The onalarm() function kills the child process with the command kill(pid, SIGKILL).Τhe command given as an input argument is executed by the child process through the command execvp.
+
+ii)
+./signal -10 find / -name '*.jpg'  :  
+
+First of all the command find / -name '*.jpg' is used to search for files in the root directory ("/") with a file name pattern matching '*.jpg'.The find command is executed by the child process.The -10 specifies a time limit of 10 seconds.The program will attempt to execute the find command within the time limit specified (10 seconds). If the execution takes longer, the program will receive a SIGALRM signal and terminate the child process. The output will include the files (if any) matching the '*.jpg' pattern found in the root directory.
+
+iii)
+a)signal(SIGALRM, onalarm)  :  Uppon reciving the signal SIGALRM call the function onalarm.
+b)alarm(sec)  :  Trigger alarm after 'sec' seconds.
+c)kill(pid, SIGKILL)  :  Sends the child process the SIGKILL signal and kills it.
+d)fork()  :  Creates the child process.
+
+
+7) Makefile :
+
+i)
+The Makefile is like a helper script that compiles multiple C programs. It knows how to turn each C program into an executable. When you run 'make'or 'make all', it compiles all the C programs listed in the Makefile using the GCC compiler with optimization level 3. 
+The 'make clean' command helps you clean up (remove) the compiled files when you're done.
+
+ii) 
+'make' or 'make all'  :  gcc -O3 pipe_1.c -o pipe_1
+                         gcc -O3 pipe_2.c -o pipe_2
+                         gcc -O3 signal.c -o signal
+                         gcc -O3 immun2ctrlC.c -o immun2ctrlC
+                         gcc -O3 example_sleep.c -o example_sleep
+                         gcc -O3 example_pause.c -o example_pause
+                         gcc -O3 example_kill.c -o example_kill
+
+'make clean'   :   rm -f *.o *~ pipe_1 pipe_2 signal immun2ctrlC example_sleep example_pause example_kill
+
+iii) 
+a)gcc -03  :  GCC compiler with optimization level 3.
+b)CC = gcc -03 :   This sets the CC variable to the GCC compiler with optimization level 3.
+c)RM = rm -f   :   The variable RM takes the value rm -f.The -f flag is used to force removal without prompting for confirmation.
+d)$(CC) $< -o $@   :  Compiles the source file (represented by $<) using the GCC compiler with optimization level 3 ($(CC)), and it creates an output executable with the name specified by $@.
+e)$(RM) *.o *~ $(EXECUTABLES)  :  Removes object files (*.o) , backup files (*~) , and all executables specified in $(EXECUTABLES).
+
+
+
+

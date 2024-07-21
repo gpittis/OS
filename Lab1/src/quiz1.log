@@ -1,0 +1,129 @@
+#!/bin/bash
+
+ mkdir quiz-1
+ ls
+ pwd
+ cd quiz-1
+ pwd
+ mkdir myfiles
+ cd myfiles
+ pwd
+ mkdir folder10582
+ mkdir folder10583
+ mkdir folder10584
+ mkdir folder10585
+ mkdir folder10586
+ mkdir folder10587
+ mkdir folder10588
+ mkdir folder10589
+ mkdir folder10590
+ ls
+ cd folder10582
+ pwd
+ touch file10582.txt
+ ls
+ cd ..
+ cd folder10583
+ touch file10583.txt
+ ls
+ cd ..
+ cd folder10584
+ touch file10584.txt
+ ls
+ cd ..
+ cd folder10585
+ touch file10585.txt
+ ls
+ cd ..
+ cd folder10586
+ touch file10586.txt
+ ls
+ cd ..
+ cd folder10587
+ touch file10587.txt
+ ls
+ cd ..
+ cd folder10588
+ touch file10588.txt
+ ls
+ cd ..
+ cd folder10589
+ touch file10589.txt
+ ls
+ cd ..
+ cd folder10590
+ touch file10590.txt
+ ls
+ cd ..
+ cd folder10582
+ for i in {1..20} ; do echo -e "banana\nchair\ntomato" | sort -R | head -1 ; done > file10582.txt
+ more file10582.txt
+ ls
+ cd ..
+ cd folder10583
+ for i in {1..20} ; do echo -e "banana\nchair\ntomato" | sort -R | head -1 ; done > file10583.txt
+ more file10583.txt
+ ls
+ cd ..
+ cd folder10584
+ for i in {1..20} ; do echo -e "banana\nchair\ntomato" | sort -R | head -1 ; done > file10584.txt
+ more file10584.txt
+ ls
+ cd ..
+ cd folder10585
+ for i in {1..20} ; do echo -e "banana\nchair\ntomato" | sort -R | head -1 ; done > file10585.txt
+ more file10585.txt
+ ls
+ cd ..
+ cd folder10586
+ for i in {1..20} ; do echo -e "banana\nchair\ntomato" | sort -R | head -1 ; done > file10586.txt
+ more file10586.txt
+ ls
+ cd ..
+ cd folder10587
+ for i in {1..20} ; do echo -e "banana\nchair\ntomato" | sort -R | head -1 ; done > file10587.txt
+ more file10587.txt
+ ls
+ cd ..
+ cd folder10588
+ for i in {1..20} ; do echo -e "banana\nchair\ntomato" | sort -R | head -1 ; done > file10588.txt
+ more file10588.txt
+ ls
+ cd ..
+ cd folder10589
+ for i in {1..20} ; do echo -e "banana\nchair\ntomato" | sort -R | head -1 ; done > file10589.txt
+ more file10589.txt
+ ls
+ cd ..
+ cd folder10590
+ for i in {1..20} ; do echo -e "banana\nchair\ntomato" | sort -R | head -1 ; done > file10590.txt
+ more file10590.txt
+ ls
+ cd ../..
+ find $(pwd) -name file10582.txt > report.txt
+ cat ./myfiles/folder10582/file10582.txt | tr -s '[:space:]' '\n' | sort | uniq -c | sort -nr | sed 's/^[ \t]*//' >> report.txt
+ echo >> report.txt
+ find $(pwd) -name file10583.txt >> report.txt
+ cat ./myfiles/folder10583/file10583.txt | tr -s '[:space:]' '\n' | sort | uniq -c | sort -nr | sed 's/^[ \t]*//' >> report.txt
+ echo >> report.txt
+ find $(pwd) -name file10584.txt >> report.txt
+ cat ./myfiles/folder10584/file10584.txt | tr -s '[:space:]' '\n' | sort | uniq -c | sort -nr | sed 's/^[ \t]*//' >> report.txt
+ echo >> report.txt
+ find $(pwd) -name file10585.txt >> report.txt
+ cat ./myfiles/folder10585/file10585.txt | tr -s '[:space:]' '\n' | sort | uniq -c | sort -nr | sed 's/^[ \t]*//' >> report.txt
+ echo >> report.txt
+ find $(pwd) -name file10586.txt >> report.txt
+ cat ./myfiles/folder10586/file10586.txt | tr -s '[:space:]' '\n' | sort | uniq -c | sort -nr | sed 's/^[ \t]*//' >> report.txt
+ echo >> report.txt
+ find $(pwd) -name file10587.txt >> report.txt
+ cat ./myfiles/folder10587/file10587.txt | tr -s '[:space:]' '\n' | sort | uniq -c | sort -nr | sed 's/^[ \t]*//' >> report.txt
+ echo >> report.txt
+ find $(pwd) -name file10588.txt >> report.txt
+ cat ./myfiles/folder10588/file10588.txt | tr -s '[:space:]' '\n' | sort | uniq -c | sort -nr | sed 's/^[ \t]*//' >> report.txt
+ echo >> report.txt
+ find $(pwd) -name file10589.txt >> report.txt
+ cat ./myfiles/folder10589/file10589.txt | tr -s '[:space:]' '\n' | sort | uniq -c | sort -nr | sed 's/^[ \t]*//' >> report.txt
+ echo >> report.txt
+ find $(pwd) -name file10590.txt >> report.txt
+ cat ./myfiles/folder10590/file10590.txt | tr -s '[:space:]' '\n' | sort | uniq -c | sort -nr | sed 's/^[ \t]*//' >> report.txt
+ more report.txt

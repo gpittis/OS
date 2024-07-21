@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ "$#" -lt 1 ]; then
+echo "Usage: $0 <4-digit-number>"
+exit 1
+fi
+if [ "$#" -gt 1 ]; then
+echo "Error: Additional arguments are not allowed."
+exit 1
+fi
+intnum="$1"
+if ! echo "$intnum" | grep -E '^[0-9]{4}$' >/dev/null; then
+echo "Error: Argument must be a 4-digit number."
+exit 1
+fi
+hash=$(echo -n "$intnum" | sha256sum)
+echo "hash of $intnum is : $hash" > hash_output.txt
+echo "$hash"
+echo "Usage: ./hash_script <4-digit-integer>"
