@@ -1,3 +1,5 @@
+![linux_logo_icon_171222](https://github.com/user-attachments/assets/fef69e0d-bc0c-4cd1-af23-d7791f060800)
+
 # OS - ECE AUTH
 
  This repository contains the solutions to the laboratory exercises for the Operational Systems Course (049).
