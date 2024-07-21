@@ -4,7 +4,8 @@ set days_inactive $argv[2]
 set recursive $argv[3]
 set dry_run $argv[4]
 set excluded_files_dirs (string split " " $argv[5]) 
-#Στο $excluded_files_dirs αναθέτω μία λίστα που τα στοιχεία της είναι paths συγκεκριμένων αρχείων ή υποφακέλων μέσα στο $target_directory. #Οπότε όταν καλώ την cleanup , στο 5ο όρισμα εισόδου βάζω "$list" , όπου list είναι η λίστα που περιέχει τα paths που εξαιρώ από την διαγραφή. 
+#Στο $excluded_files_dirs αναθέτω μία λίστα που τα στοιχεία της είναι paths συγκεκριμένων αρχείων ή υποφακέλων μέσα στο $target_directory. 
+#Οπότε όταν καλώ την cleanup , στο 5ο όρισμα εισόδου βάζω "$list" , όπου list είναι η λίστα που περιέχει τα paths που εξαιρώ από την διαγραφή. 
 #Επίσης, χρησιμοποιώ την εντολή (string split " " $argv[5]) ώστε κάθε στοιχείο της λίστας να περαστεί σαν ξεχωριστό στοιχείο στο $excluded_files_dirs και όχι ως ένα ενιαίο string.
 set sort_type $argv[6]
 set confirmation $argv[7]
@@ -27,7 +28,8 @@ break
 end
 end
 if test $found = true
-set target_dir_list (string match -v $val $target_dir_list) #Διαγράφω ΜΟΝΟ το "όνομα" του κοινού path από την $target_dir_list και ΟΧΙ το ίδιο το αρχείο ή τον υποφάκελο που αντιστοιχεί σε αυτό το path. 
+set target_dir_list (string match -v $val $target_dir_list) 
+#Διαγράφω ΜΟΝΟ το "όνομα" του κοινού path από την $target_dir_list και ΟΧΙ το ίδιο το αρχείο ή τον υποφάκελο που αντιστοιχεί σε αυτό το path. 
 #Έτσι, εξαιρώ από την διαγραφή τα περιεχόμενα της λίστας $excluded_files_dirs.
 end
 set found false
