@@ -1,4 +1,4 @@
-# OS 
+# OS - Electrical and Computer Engineering AUTH 
 
  This repository contains the solutions to the laboratory exercises for the Operational Systems Course (049).
  
