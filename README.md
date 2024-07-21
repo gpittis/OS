@@ -1,2 +1,2 @@
 # OS
- Operational Systems ECE AUTH (7o Semester)
+ Operational Systems Course ECE AUTH (7o Semester)
