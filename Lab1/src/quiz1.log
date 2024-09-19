@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mkdir quiz-1
 cd quiz-1
 mkdir myfiles
