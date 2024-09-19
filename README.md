@@ -2,7 +2,7 @@
 
 # OS
 
- This repository contains the solutions to the laboratory exercises for the Operational Systems Course (049).
+ This repository contains the solutions to the laboratory exercises for the Operational Systems Course.
  
 ## Lab 1
 
