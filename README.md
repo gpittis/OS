@@ -2,7 +2,7 @@
 
 # OS
 
- This repository contains the solutions to the laboratory exercises for the Operational Systems Course.
+ This repository contains the solutions to the laboratory exercises for the Operating Systems Course.
  
 ## Lab 1
 
